@@ -11,7 +11,6 @@ class Board:
         self.create_board()
         self.white_left = self.black_left = 16
 
-    # Can probably do more efficiently
     def create_board(self):
         self.board.append([])
         self.board[0].append(Piece('Rook', 0, 0, BLACK))
@@ -59,7 +58,6 @@ class Board:
         black_pieces, white_pieces = self.piece_quantities(BLACK), self.piece_quantities(WHITE)
         
         black_evaluation = ((black_pieces['Pawn']) + (3 * black_pieces['Bishop']) + (3 * black_pieces['Knight']) + (5 * black_pieces['Rook']) + (9 * black_pieces['Queen']) + (100000000 * black_pieces['King'])) 
-        
         white_evaluation = ((white_pieces['Pawn']) + (3 * white_pieces['Bishop']) + (3 * white_pieces['Knight']) + (5 * white_pieces['Rook']) + (9 * white_pieces['Queen']) + (100000000 * white_pieces['King']))
 
         evaluation = black_evaluation - white_evaluation
@@ -144,7 +142,6 @@ class Board:
         return self.board[row][col]
 
     def move(self, piece, row, col):
-        #print(piece)
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
 
