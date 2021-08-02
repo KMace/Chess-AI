@@ -3,6 +3,13 @@ from game import Game
 from constants import WIDTH, HEIGHT, SQUARE_SIZE, WIN, WHITE, BLACK
 from minimax.algorithm import minimax
 
+##################################################
+# Still need to implement following functionality:
+# 
+# Castles
+# Pawn promotion to a rook, bishop, queen
+##################################################
+
 pygame.display.set_caption("Chess")
 FPS = 60
 
@@ -12,19 +19,10 @@ def get_row_col_from_mouse(pos):
     col = x // SQUARE_SIZE
     return row, col
 
-##################################################
-# Still need to implement following functionality:
-# 
-# Check
-# Checkmate
-# Castles
-# Pawn promotion to a rook, bishop, queen
-##################################################
-
 def main():
     difficultyChosen = False
     while not difficultyChosen:
-        setting = int(input("Select a difficulty: \n1) Beginner\n2) Intermediate\n3) Expert\n"))
+        setting = int(input("Select a difficulty: \n1) Beginner\n2) Intermediate\n3) Expert\n\n"))
         print()
         if setting == 1 or setting == 2 or setting == 3:
             setting += 2
@@ -43,16 +41,26 @@ def main():
         clock.tick(FPS)
         
         if game.turn == BLACK:
-            value, new_board = minimax(game.get_board(), 3, True, game, float('-inf'), float('inf'))
+            value, new_board = minimax(game.get_board(), setting, True, game, float('-inf'), float('inf'))
             game.ai_move(new_board)
-        
+ 
         if game.winner() != None:
+            print()
+            
             if game.winner() == WHITE:
                 print("White wins!")
             else:
                 print("Black wins!")
             
+            run = False
 
+        # If you un-hash this subsequent code you can watch AIs play one another
+
+        #if game.turn == WHITE:
+        #    value, new_board = minimax(game.get_board(), setting, False, game, float('-inf'), float('inf'))
+        #    game.ai_move(new_board)
+        #    print("White moves with an evaluation of", value)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
