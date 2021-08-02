@@ -18,7 +18,6 @@ def minimax(position, depth, max_player, game, alpha, beta):
                 if alpha >= beta:
                     break
         
-        print("Best move for black:", alpha, best_move)
         return alpha, best_move
         
     else:
@@ -30,8 +29,7 @@ def minimax(position, depth, max_player, game, alpha, beta):
                 best_move = move
                 if alpha >= beta:
                     break
-        
-        print("Best move for white:", beta, best_move)
+
         return beta, best_move
 
 def simulate_move(piece, move, board, game, skip):
@@ -50,7 +48,12 @@ def get_all_moves(board, colour, game):
     for piece in board.get_all_pieces(colour):        
         valid_moves = board.get_valid_moves(piece)
         for move, skip in valid_moves.items():
+
+            # If you un-hash the subsequent code, you can see a 
+            # visual representation of what the AI is calculating
+
             #draw_moves(game, board, piece)
+            
             temp_board = deepcopy(board)
             temp_piece = temp_board.get_piece(piece.row, piece.col)
             new_board = simulate_move(temp_piece, move, temp_board, game, skip)
